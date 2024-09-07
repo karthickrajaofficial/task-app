@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -47,7 +46,7 @@ function Register() {
     e.preventDefault();
 
     if (password !== password2) {
-      toast.error('password is not matching');
+      toast.error('Passwords do not match');
     } else {
       const userData = {
         name,
@@ -59,70 +58,76 @@ function Register() {
   };
 
   if (isLoading) {
-    <Spinner />;
+    return <Spinner />;
   }
 
   return (
     <>
-      <section className="heading">
-        <h1>
-          <FaUser />
-          Register
+      <section className="text-center py-8">
+        <h1 className="text-4xl font-bold flex justify-center items-center space-x-2">
+          <FaUser className="text-3xl" /> <span>Register</span>
         </h1>
-        <p>Please create an account</p>
+        <p className="text-lg mt-2">Please create an account</p>
       </section>
-      <section className="form">
+
+      <section className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
         <form onSubmit={onSubmit}>
-          <div className="form-group">
+          <div className="mb-4">
             <input
               type="text"
               name="name"
               value={name}
-              placeholder="Please enter name"
+              placeholder="Enter your name"
               id="name"
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={onChange}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-4">
             <input
               type="email"
               name="email"
               value={email}
-              placeholder="Please enter email"
+              placeholder="Enter your email"
               id="email"
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={onChange}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-4">
             <input
               type="password"
               name="password"
               value={password}
-              placeholder="Please enter password"
+              placeholder="Enter your password"
               id="password"
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={onChange}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-4">
             <input
               type="password"
               name="password2"
               value={password2}
-              placeholder="Please enter password2"
+              placeholder="Confirm your password"
               id="password2"
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={onChange}
             />
           </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
+          <div className="mt-6">
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+            >
               Submit
             </button>
           </div>
         </form>
+        <div className="mt-4 text-center">
+          <p className="text-gray-600">Already User? <a href="/login" className="text-blue-500 hover:underline">Login here</a></p>
+        </div>
       </section>
     </>
   );

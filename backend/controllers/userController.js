@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 const { validationResult } = require('express-validator');
 const User = require('../model/userModel');
 
-// Function to generate JWT
+
 const generateJWT = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',

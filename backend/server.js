@@ -1,22 +1,37 @@
 const path = require('path');
 const express = require('express');
 const colors = require('colors');
-const dotenv = require('dotenv').config();
+const cors = require('cors');  // Import cors
+require('dotenv').config();
 const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
 const port = process.env.PORT || 5000;
 
-connectDB();
+connectDB(); 
 
 const app = express();
+
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+
+app.use((req, res, next) => {
+  console.log('Request headers:', req.headers);
+  console.log('Request method:', req.method);
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/goals', require('./routes/goalRoutes'));
+app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 
-// Serve frontend
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend/build')));
 
@@ -32,3 +47,4 @@ if (process.env.NODE_ENV === 'production') {
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
+console.log('MongoDB URI:', process.env.MONGO_URI); // Add this line for debugging

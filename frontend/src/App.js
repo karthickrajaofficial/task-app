@@ -8,19 +8,19 @@ import Register from './pages/Register'
 
 function App() {
   return (
-    <>
-      <Router>
-        <div className='container'>
-          <Header />
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
           <Routes>
             <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
           </Routes>
-        </div>
-      </Router>
+        </main>
+      </div>
       <ToastContainer />
-    </>
+    </Router>
   )
 }
 
