@@ -8,19 +8,22 @@ import Register from './pages/Register'
 
 function App() {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
-          <Routes>
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-          </Routes>
-        </main>
-      </div>
+    <>
+      <Router>
+        {/* Apply a background and min-height for all pages */}
+        <div className='min-h-screen bg-gray-100 bg-cover bg-center'>
+          <Header />
+          <div className='container mx-auto'>
+            <Routes>
+              <Route path='/' element={<Dashboard />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
       <ToastContainer />
-    </Router>
+    </>
   )
 }
 

@@ -11,7 +11,6 @@ const generateJWT = (id) => {
   });
 };
 
-// User Registration
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -46,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// User Login
+
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -64,7 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-// Get Current User
+
 const getMe = asyncHandler(async (req, res) => {
  res.status(200).json(req.user)
 });

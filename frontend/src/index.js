@@ -6,6 +6,8 @@ import App from './App';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './index.css';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 const container = document.getElementById('root');
 const root = createRoot(container);

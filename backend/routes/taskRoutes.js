@@ -7,5 +7,11 @@ router.route('/').get(protect, getTasks).post(protect,setTasks)
 router.route('/:id').put(protect,putTasks).delete(protect,deleteTasks).patch(protect,updateTask)
 
 
+router.patch('/:id/status', (req, res, next) => {
+    console.log('PATCH request received');
+    next();
+  }, updateTask);
+  
+
 
 module.exports = router

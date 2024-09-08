@@ -44,7 +44,7 @@ function TaskItem({ task }) {
   };
 
   return (
-    <div className='p-4 mb-4 border rounded-lg shadow-md bg-white'>
+    <div className='p-4 mb-4 '>
       <h3 className='text-xl font-semibold mb-2'>{task.text}</h3>
       <p className='text-gray-500 text-sm mb-4'>
         Created at: {new Date(task.createdAt).toLocaleString()}
