@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Router>
-        {/* Apply a background and min-height for all pages */}
+      
         <div className='min-h-screen bg-gray-100 bg-cover bg-center'>
           <Header />
           <div className='container mx-auto'>
