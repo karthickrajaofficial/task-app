@@ -38,11 +38,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+app.use(express.static(path.join(__dirname, 'frontend', 'public', 'build')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'frontend', 'public', 'build', 'index.html'));
 });
 
 // Error handling middleware
