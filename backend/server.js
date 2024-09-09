@@ -41,16 +41,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
-// Serve frontend static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, "frontend", "build")));
+const staticPath = path.join(__dirname, "frontend", "build");
+app.use(express.static(staticPath));
 
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => res.send('Please set to production'));
-}
+// Serve the 'index.html' file for all other requests (for SPA routing)
+const indexPath = path.resolve(__dirname, "frontend", "build", "index.html");
+app.get('*', (req, res) => {
+  res.sendFile(indexPath);
+});
+
+// Serve frontend static files in production
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, "frontend", "build")));
+
+//   app.get('*', (req, res) =>
+//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+//   );
+// } else {
+//   app.get('/', (req, res) => res.send('Please set to production'));
+// }
 
 // Serve static files from the 'frontend/build' directory
 // const staticPath = path.join(__dirname, '..', 'frontend', 'build');
