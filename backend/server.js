@@ -13,23 +13,20 @@ connectDB();
 
 const app = express();
 
-
 app.use(cors({
   credentials: true,
   origin: true,
 }));
+
 // Handle OPTIONS requests
 app.options('*', cors({
-  origin: true ,
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
-
 app.use((req, res, next) => {
-  // console.log('Request headers:', req.headers);
-  // console.log('Request method:', req.method);
   next();
 });
 
@@ -41,34 +38,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
-const path = require('path');
+// Serve frontend static files
 app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
 });
 
-
-// Serve frontend static files in production
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, "frontend", "build")));
-
-//   app.get('*', (req, res) =>
-//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-//   );
-// } else {
-//   app.get('/', (req, res) => res.send('Please set to production'));
-// }
-
-// Serve static files from the 'frontend/build' directory
-// const staticPath = path.join(__dirname, '..', 'frontend', 'build');
-// app.use(express.static(staticPath));
-
-// // Serve the 'index.html' file for all other requests (for SPA routing)
-// const indexPath = path.resolve(staticPath, 'index.html');
-// app.get('*', (req, res) => {
-//   res.sendFile(indexPath);
-// });
 // Error handling middleware
 app.use(errorHandler);
 
