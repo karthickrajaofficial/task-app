@@ -42,25 +42,25 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
 // Serve frontend static files in production
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, "frontend", "build")));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-//   app.get('*', (req, res) =>
-//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-//   );
-// } else {
-//   app.get('/', (req, res) => res.send('Please set to production'));
-// }
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => res.send('Please set to production'));
+}
 
 // Serve static files from the 'frontend/build' directory
-const staticPath = path.join(__dirname, '..', 'frontend', 'build');
-app.use(express.static(staticPath));
+// const staticPath = path.join(__dirname, '..', 'frontend', 'build');
+// app.use(express.static(staticPath));
 
-// Serve the 'index.html' file for all other requests (for SPA routing)
-const indexPath = path.resolve(staticPath, 'index.html');
-app.get('*', (req, res) => {
-  res.sendFile(indexPath);
-});
+// // Serve the 'index.html' file for all other requests (for SPA routing)
+// const indexPath = path.resolve(staticPath, 'index.html');
+// app.get('*', (req, res) => {
+//   res.sendFile(indexPath);
+// });
 // Error handling middleware
 app.use(errorHandler);
 
