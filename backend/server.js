@@ -41,13 +41,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
-const staticPath = path.join(__dirname, "frontend", "build");
-app.use(express.static(staticPath));
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
-// Serve the index.html file for all other requests (SPA routing)
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(staticPath, 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
 });
+
 
 // Serve frontend static files in production
 // if (process.env.NODE_ENV === 'production') {
