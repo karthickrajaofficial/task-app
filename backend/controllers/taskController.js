@@ -20,42 +20,45 @@ const setTasks = asyncHandler(async(req,res) => {
    })
     res.status(200).json(task)
 })
-const putTasks = asyncHandler(async(req,res) => {
-    const task = await Task.findById(req.params.id)
-    if(!task){
-       res.status(400)
-       throw new Error ('Task not found')
+
+const putTasks = asyncHandler(async (req, res) => {
+    const task = await Task.findById(req.params.id);
+    if (!task) {
+        res.status(404);
+        throw new Error('Task not found');
     }
 
-    if(!req.user){
-        res.status(401)
-        throw new Error('user not found ')
+    if (task.user.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
     }
-    if (task.user.toString() !== req.user.id){
-        res.status(401)
-        throw new Error('user not Authorised ')
-    }
-    const updatedTask = await Task.findByIdAndUpdate(req.params.id,req.body,{
-        new:true
-    })
-    res.status(200).json (updatedTask)
-})
 
-const updateTask = async (req, res) => {
+    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
+        new: true
+    });
+    res.status(200).json(updatedTask);
+});
+
+
+const updateTask = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
-  
-    try {
-      const task = await Task.findByIdAndUpdate(id, { status }, { new: true });
-      if (!task) {
+
+    const task = await Task.findById(id);
+    if (!task) {
         return res.status(404).json({ message: 'Task not found' });
-      }
-      res.json(task);
-    } catch (error) {
-      console.error('Error updating task status:', error);
-      res.status(500).json({ message: 'Server error' });
     }
-  };
+
+    if (task.user.toString() !== req.user.id) {
+        return res.status(401).json({ message: 'User not authorized' });
+    }
+
+    const updatedTask = await Task.findByIdAndUpdate(id, { status }, { new: true });
+    res.status(200).json(updatedTask);
+});
+
+
+
   
   
 const deleteTasks = asyncHandler(async (req,res) => {

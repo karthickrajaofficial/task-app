@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend"
-  },
+"scripts": {
+  "start": "node backend/server.js",
+  "server": "nodemon backend/server.js",
+  "frontend": "npm start --prefix frontend",
+  "backend": "npm run server", 
+  "dev": "concurrently \"npm run frontend\" \"npm run backend\""
+},
+
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -23,6 +26,7 @@
     "mongoose": "^7.5.3"
   },
   "devDependencies": {
+    "concurrently": "^9.0.0",
     "nodemon": "^3.0.1"
   }
 }

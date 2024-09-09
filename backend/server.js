@@ -51,12 +51,13 @@ app.use('/api/users', userRoutes);
 // } else {
 //   app.get('/', (req, res) => res.send('Please set to production'));
 // }
-// Serve static files from the 'dist' directory (for frontend)
-const staticPath = path.join(__dirname, "frontend", "build");
+
+// Serve static files from the 'frontend/build' directory
+const staticPath = path.join(__dirname, '..', 'frontend', 'build');
 app.use(express.static(staticPath));
 
 // Serve the 'index.html' file for all other requests (for SPA routing)
-const indexPath = path.resolve(__dirname, "frontend", "build", "index.html");
+const indexPath = path.resolve(staticPath, 'index.html');
 app.get('*', (req, res) => {
   res.sendFile(indexPath);
 });
