@@ -3,7 +3,7 @@ const express = require('express');
 const colors = require('colors');
 const cors = require('cors'); 
 require('dotenv').config();
-const { errorHandler } = require('./middleware/errorMiddleware');
+const { errorHandler } = require('./Middleware/errorMiddleware');
 const connectDB = require('./config/db');
 const taskRoutes = require('./routes/taskRoutes');
 const userRoutes = require('./routes/userRoutes');
