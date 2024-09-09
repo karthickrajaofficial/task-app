@@ -44,10 +44,9 @@ app.use('/api/users', userRoutes);
 const staticPath = path.join(__dirname, "frontend", "build");
 app.use(express.static(staticPath));
 
-// Serve the 'index.html' file for all other requests (for SPA routing)
-const indexPath = path.resolve(__dirname, "frontend", "build", "index.html");
+// Serve the index.html file for all other requests (SPA routing)
 app.get('*', (req, res) => {
-  res.sendFile(indexPath);
+  res.sendFile(path.resolve(staticPath, 'index.html'));
 });
 
 // Serve frontend static files in production
